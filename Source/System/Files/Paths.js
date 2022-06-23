@@ -21,7 +21,7 @@ export const configs = join(data,'Configurations');
  *  Application Data Folder
  */
 
-export const app = join('usr','share','Daeton');
+export const app = join('/','usr','share','Daeton');
 
 export const info = join(app,'Info');
 

@@ -1,7 +1,13 @@
 {
     "imports" : {
+        
         "WebView" : "https://raw.githubusercontent.com/webview/webview_deno/main/src/webview.ts" ,
+        
+        "FileSystem" : "https://deno.land/std@0.144.0/fs/mod.ts" ,
         "HTTP" : "https://deno.land/std@0.144.0/http/mod.ts" ,
-        "Path" "https://deno.land/std@0.144.0/path/mod.ts"
+        "Path" : "https://deno.land/std@0.144.0/path/mod.ts" ,
+        
+        "Errors" : "./Daeton/Errors.js" ,
+        "Paths" : "./System/Files/Paths.js"
     }
 }
