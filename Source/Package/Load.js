@@ -3,6 +3,7 @@ import { filterKeys } from 'Filter Keys'
 import { parse } from 'YAML'
 import { join } from 'Path'
 
+import activatePackage from './Activate.js'
 import parseManifest from './Manifest/Parse.js'
 
 
@@ -35,8 +36,14 @@ export default async function loadPackage(path){
     log(manifest);
     
     const pack = {
-        info : filterKeys(manifest,isInfo)
+        info : filterKeys(manifest,isInfo) ,
+        paths : {
+            folder : path ,
+            activate : join(path,manifest.activate)
+        }
     }
     
     log(pack);
+    
+    await activatePackage(pack);
 }
