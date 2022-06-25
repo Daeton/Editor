@@ -77,5 +77,7 @@ export default function parseManifest(data){
         
     const [ owner , repository ] = github.split('\/');
     
-    return { ... parsed , owner , repository };
+    const id = `${ owner.toLowerCase() }:${ repository.toLowerCase() }`;
+    
+    return { ... parsed , owner , repository , id };
 }

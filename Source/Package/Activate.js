@@ -1,4 +1,5 @@
 
+import { ensureDir } from 'FileSystem'
 
 const { log } = console;
 
@@ -9,6 +10,8 @@ const { log } = console;
 
 export default async function activatePackage(pack){
     
+    await ensureDir(pack.paths.configs);
+    
     const path_activate = pack.paths.activate;
     
     const module = await import(path_activate);
@@ -18,5 +21,5 @@ export default async function activatePackage(pack){
     
     log(`Activating package ${ pack.info.title }`);
     
-    await module.activate();
+    await module.activate(pack);
 }
