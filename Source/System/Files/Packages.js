@@ -1,11 +1,11 @@
 
 import { packages as path } from 'Paths'
-import { parse } from 'YAML'
 import { walk } from 'FileSystem'
-import { join } from 'Path'
+
+import loadPackage from '../../Package/Load.js'
 
 
-const { log } = console;
+const { log , warn } = console;
 
 
 /*
@@ -27,37 +27,6 @@ export async function readPackages(){
     await entries.next();
     
     for await (const entry of entries)
-        await loadPackage(entry.path);
-}
-
-
-const { readTextFile , errors } = Deno;
-const { NotFound } = errors;
-
-async function loadPackage(path){
-    
-    let manifest;
-    
-    try {
-        
-        const path_manifest = join(path,'Package.yaml');
-        
-        const yaml = await readTextFile(path_manifest);
-        
-        manifest = parse(yaml);
-                
-    } catch ( error ) {
-
-        if(error instanceof NotFound)
-            console.error(
-                'Package doesn\'t contain a manifest.' + '\n' +
-                'Package folder: ' + path);
-        else
-            throw error;
-            
-        return;
-    }
-    
-    
-    log(manifest);
+        await loadPackage(entry.path)
+            .catch(console.error);
 }
