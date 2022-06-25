@@ -9,7 +9,9 @@ import * as Paths from 'Paths';
 
 export default async function initFileSystem(){
     
-    const { data } = Paths;
+    const { packages , configs , data } = Paths;
     
     await ensure(data);
+    await ensure(packages);
+    await ensure(configs);
 }
