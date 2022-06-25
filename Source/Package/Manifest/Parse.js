@@ -54,15 +54,21 @@ export default function parseManifest(data){
     
     const { description } = data;
     
-    parsed.description = description
-        .split('\n')
-        .map((value) => value.slice(0,60))
-        .splice(0,2);
+    {
+        const parts = description
+            .split('\n');
+            
+        const limit = 120 / Math.min(parts.length,2);
+        
+        parsed.description = parts
+            .map((value) => value.slice(0,limit))
+            .splice(0,2);
+    }
         
     
     const { github } = parsed;
     
-    if(!/^[0-9a-z](-[0-9a-z])*\/[0-9a-z](-[0-9a-z])*$/i.test(github))
+    if(!/^[0-9a-z]+(-[0-9a-z]+)*\/[0-9a-z]+(-[0-9a-z]+)*$/i.test(github))
         throw 'Invalid GitHub link';
         
     const [ owner , repository ] = github.split('\/');
