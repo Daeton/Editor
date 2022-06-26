@@ -1,6 +1,8 @@
 {
     "imports" : {
         
+        "WebView" : "https://raw.githubusercontent.com/webview/webview_deno/main/mod.ts" ,
+        
         "FileSystem" : "https://deno.land/std@0.145.0/fs/mod.ts" ,
         "YAML" : "https://deno.land/std@0.145.0/encoding/yaml.ts" ,
         "HTTP" : "https://deno.land/std@0.145.0/http/mod.ts" ,
@@ -11,7 +13,7 @@
         "Map Values" : "https://deno.land/std@0.145.0/collections/map_values.ts" ,
         "Map Keys" : "https://deno.land/std@0.145.0/collections/map_keys.ts" ,
         
-        "Errors" : "./Daeton/Errors.js" ,
+        "Thread" : "./System/Thread.js" ,
         "Paths" : "./System/Files/Paths.js"
     }
 }
