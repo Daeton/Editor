@@ -18,7 +18,8 @@ const limits = {
     license : 60 ,
     github : 100 ,
     title : 100 ,
-    activate : 200
+    activate : 200 ,
+    interface : 200
 }
 
 
@@ -44,6 +45,9 @@ export default function parseManifest(data){
     for(const [ key , limit ] of entries(limits)){
         
         const value = data[key];
+        
+        if(!value)
+            continue;
 
         const { length } = value;
 
@@ -68,6 +72,7 @@ export default function parseManifest(data){
     }
     
     parsed.activate = data.activate;
+    parsed.interface = data.interface;
         
     
     const { github } = parsed;

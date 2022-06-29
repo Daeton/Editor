@@ -12,6 +12,8 @@ const { readTextFile } = Deno;
 const { log } = console;
 
 
+const packages = new Map;
+
 const infoProperties = [
     'description' , 'owner' , 'version' , 
     'repository' , 'title' , 'license'
@@ -22,7 +24,13 @@ const isInfo = (key) =>
     infoProperties.includes(key);
 
 
-export default async function loadPackage(path){
+export function packageBy(id){
+    log('packages',packages)
+    return packages.get(id);
+}
+
+
+export async function loadPackage(path){
     
     const path_manifest = join(path,'Package.yaml');
     
@@ -42,6 +50,7 @@ export default async function loadPackage(path){
         paths : {
             folder : path ,
             activate : join(path,manifest.activate) ,
+            interface : join(path,manifest.interface) ,
             configs : join(configs,manifest.id)
         },
         configs : {
@@ -66,7 +75,11 @@ export default async function loadPackage(path){
         }
     }
     
-    log(pack);
+    packages.set(pack.id,pack);
+    
+    log('packs',packages)
+        
+    log('Loaded Package:',pack.id,pack);
     
     await activatePackage(pack);
 }

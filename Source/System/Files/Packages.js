@@ -2,7 +2,7 @@
 import { packages as path } from 'Paths'
 import { walk } from 'FileSystem'
 
-import loadPackage from '../../Package/Load.js'
+import { loadPackage } from '../../Package/Load.js'
 
 
 const { log , warn } = console;

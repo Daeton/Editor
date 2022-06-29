@@ -2,6 +2,9 @@
 import { fromFileUrl , dirname , join } from 'Path'
 import Thread from 'Thread'
 
+import { packageBy } from '../../Package/Load.js'
+
+
 const { log } = console;
 
 
@@ -21,9 +24,21 @@ export function startWebServer(port){
         thread.onClose(() => {
             log('WebServer Closed');
         });
+        
+        thread.registerMethod('packageBy',retrievePackage);
     });
 }
 
 export function stopWebServer(){
     thread.terminate();
+}
+
+
+async function retrievePackage({ id }){
+    
+    const { info , paths } = packageBy(id);
+    
+    return {
+        pack : { id , info , paths }
+    }
 }

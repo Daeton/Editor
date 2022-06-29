@@ -2,7 +2,8 @@
 import { Webview } from 'WebView';
 
 
-const webview = new Webview;
+const webview = new Webview();
+webview.title = 'Daeton';
 webview.navigate('http://localhost:20000');
 
 
@@ -13,7 +14,7 @@ webview.bind('close',() => {
     self.close();
 });
 
-addEventListener('onmessage',(event) => {
+addEventListener('message',(event) => {
     
     if(event.data === 'close')
         webview.terminate();

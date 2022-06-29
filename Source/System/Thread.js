@@ -15,7 +15,8 @@ const worker_options = {
 
 
 export default class Thread {
-
+    
+    #methods = new Map;
     #listeners = new EventTarget;
     #closed = false;
     #worker;
@@ -45,11 +46,23 @@ export default class Thread {
         });
     }
     
-    #onMessage(event){
+    async #onMessage(event){
         
         const { data } = event;
         
         const { type , ...args } = data;
+        
+        if(this.#methods.has(type)){
+        
+            const retrieve = this.#methods.get(type);
+            
+            const result = await retrieve(args);
+            
+            console.log(result,'res')
+            console.log(this.#send)
+            
+            this.#send(type,result);
+        }
         
         this.#listeners.dispatchEvent(
             new MessageEvent(type,{ data : args }));
@@ -73,5 +86,9 @@ export default class Thread {
     
     onClose(callback){
         this.listenTo('closed',callback);
+    }
+    
+    registerMethod(name,callback){
+        this.#methods.set(name,callback);
     }
 }
